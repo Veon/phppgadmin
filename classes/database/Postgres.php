@@ -169,7 +169,7 @@ class Postgres extends ADODB_base {
 	 * Constructor
 	 * @param $conn The database connection
 	 */
-	function Postgres($conn) {
+	function __construct($conn) {
 		$this->ADODB_base($conn);
 	}
 
@@ -1090,20 +1090,32 @@ class Postgres extends ADODB_base {
 		$this->clean($c_schema);
 		if ($all) {
 			// Exclude pg_catalog and information_schema tables
-			$sql = "SELECT schemaname AS nspname, tablename AS relname, tableowner AS relowner
-					FROM pg_catalog.pg_tables
-					WHERE schemaname NOT IN ('pg_catalog', 'information_schema', 'pg_toast')
+			$sql = "SELECT schemaname AS nspname,
+                            tablename AS relname,
+                            tableowner AS relowner,
+                            pg_relation_size(information_schema.tables.table_name) as tsize
+					FROM
+                            pg_catalog.pg_tables c
+                    JOIN
+                            information_schema.tables ON ( information_schema.tables.table_name = c.tablename )
+					WHERE
+                            schemaname NOT IN ('pg_catalog', 'information_schema', 'pg_toast')
 					ORDER BY schemaname, tablename";
 		} else {
-			$sql = "SELECT c.relname, pg_catalog.pg_get_userbyid(c.relowner) AS relowner,
-						pg_catalog.obj_description(c.oid, 'pg_class') AS relcomment,
-						reltuples::bigint,
-						(SELECT spcname FROM pg_catalog.pg_tablespace pt WHERE pt.oid=c.reltablespace) AS tablespace
-					FROM pg_catalog.pg_class c
-					LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
-					WHERE c.relkind = 'r'
-					AND nspname='{$c_schema}'
-					ORDER BY c.relname";
+                $sql = "SELECT
+                            c.relname,
+                            pg_catalog.pg_get_userbyid(c.relowner) AS relowner,
+                            pg_catalog.obj_description(c.oid, 'pg_class') AS relcomment,
+                            reltuples::bigint,
+                            (SELECT spcname FROM pg_catalog.pg_tablespace pt WHERE pt.oid=c.reltablespace) AS tablespace
+                    FROM pg_catalog.pg_class c
+                            LEFT JOIN
+                                pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+                            LEFT JOIN
+                                information_schema.tables ON ( information_schema.tables.table_name = c.relname)
+                            WHERE c.relkind = 'r'
+                            AND nspname='{$c_schema}'
+                            ORDER BY c.relname";
 		}
 
 		return $this->selectSet($sql);

@@ -755,6 +755,11 @@
 				'field' => field('reltuples'),
 				'type'  => 'numeric'
 			),
+            'tsize' => array(
+                'title' => $lang['strtablesize'],
+                'field' => field('tsize'),
+                'type'  => 'numeric'
+            ),
 			'actions' => array(
 				'title' => $lang['stractions'],
 			),

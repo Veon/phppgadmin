@@ -1107,7 +1107,8 @@ class Postgres extends ADODB_base {
                             pg_catalog.pg_get_userbyid(c.relowner) AS relowner,
                             pg_catalog.obj_description(c.oid, 'pg_class') AS relcomment,
                             reltuples::bigint,
-                            (SELECT spcname FROM pg_catalog.pg_tablespace pt WHERE pt.oid=c.reltablespace) AS tablespace
+                            (SELECT spcname FROM pg_catalog.pg_tablespace pt WHERE pt.oid=c.reltablespace) AS tablespace,
+                            pg_size_pretty(pg_relation_size(information_schema.tables.table_name)) as tsize
                     FROM pg_catalog.pg_class c
                             LEFT JOIN
                                 pg_catalog.pg_namespace n ON n.oid = c.relnamespace

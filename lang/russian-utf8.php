@@ -212,6 +212,7 @@
 	$lang['strcreatelikewithconstraints'] = 'включить ограничения';
 	$lang['strcreatelikewithindexes'] = 'включить индексы';
 	$lang['strtablename'] = 'Имя таблицы';
+    $lang['strtablesize'] = 'Размер таблицы';
 	$lang['strtableneedsname'] = 'Вам необходимо определить имя таблицы.';
 	$lang['strtablelikeneedslike'] = 'Вам необходимо определить исходную таблицу.';
 	$lang['strtableneedsfield'] = 'Вам необходимо определить по крайней мере одно поле.';

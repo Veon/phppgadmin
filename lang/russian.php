@@ -146,6 +146,7 @@
 	$lang['strnotable'] = ' Таблица не обнаружена.';
 	$lang['strcreatetable'] = 'Создать таблицу';
 	$lang['strtablename'] = 'Имя таблицы';
+    $lang['strtablesize'] = 'Размер таблицы';
 	$lang['strtableneedsname'] = 'Вам необходимо определить имя таблицы.';
 	$lang['strtableneedsfield'] = 'Вам необходимо определить по крайней мере одно поле.';
 	$lang['strtableneedscols'] = 'Вам необходимо указать допустимое число атрибутов.';

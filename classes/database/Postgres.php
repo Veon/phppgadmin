@@ -1093,7 +1093,7 @@ class Postgres extends ADODB_base {
 			$sql = "SELECT schemaname AS nspname,
                             tablename AS relname,
                             tableowner AS relowner,
-                            pg_relation_size(information_schema.tables.table_name) as tsize
+                            pg_size_pretty(pg_relation_size(information_schema.tables.table_name)) as tsize
 					FROM
                             pg_catalog.pg_tables c
                     JOIN
@@ -3824,6 +3824,30 @@ class Postgres extends ADODB_base {
 		";
 		return $this->selectSet($sql);
 	}
+
+    /**
+     * Get size of one table
+     * @param $table Get table size
+     * @return Table size in pretty or default format
+     */
+    function getTableSize($table, $format = 'pretty') {
+        $this->clean($table);
+
+        $c_schema = $this->_schema;
+        $this->clean($c_schema);
+
+        if ( $format = "pretty" ) {
+            $sql = "SELECT pg_size_pretty(pg_relation_size(information_schema.tables.table_name))
+                            FROM information_schema.tables
+                            WHERE table_name = '" . $table . "';";
+        } else {
+            $sql = "SELECT pg_relation_size(information_schema.tables.table_name)
+                            FROM information_schema.tables
+                            WHERE table_name = '" . $table . "';";
+        }
+
+        return $this->selectSet($sql);
+    }
 
 	/**
 	 * Finds the foreign keys that refer to the specified table

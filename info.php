@@ -33,7 +33,7 @@
 		$tablestatsio = $data->getStatsTableIO($_REQUEST['table']);
 		$indexstatstups = $data->getStatsIndexTuples($_REQUEST['table']);
 		$indexstatsio = $data->getStatsIndexIO($_REQUEST['table']);
-        
+
 		// Check that there is some info
 		if (($referrers === -99 || ($referrers !== -99 && $referrers->recordCount() == 0)) 
 				&& $parents->recordCount() == 0 && $children->recordCount() == 0
@@ -322,6 +322,7 @@
 	
 				echo "</table>\n";
 			}
+            echo "<h3>{$lang['strtablesize']}: " . $data->getTableSize('catalog') . "</h3>";
 		}
 	}
 

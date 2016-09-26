@@ -3840,6 +3840,8 @@ class Postgres extends ADODB_base {
             $sql = "SELECT pg_size_pretty(pg_relation_size(information_schema.tables.table_name))
                             FROM information_schema.tables
                             WHERE table_name = '" . $table . "';";
+
+            return $this->selectSet($sql)->fields['pg_size_pretty'];
         } else {
             $sql = "SELECT pg_relation_size(information_schema.tables.table_name)
                             FROM information_schema.tables

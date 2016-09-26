@@ -6,6 +6,8 @@
 	 *
 	 * $Id: russian.php,v 1.12 2007/04/24 11:42:07 soranzo Exp $
 	 */
+    $lang['strnohistory'] = 'История отсутствует';
+    $lang['strhistory'] = 'История';
 
 	// Language and character set
 	$lang['applang'] = 'Русский КОИ8';

@@ -6,6 +6,17 @@
 	 *
 	 * $Id: russian.php,v 1.12 2007/04/24 11:42:07 soranzo Exp $
 	 */
+    $lang['strnovacuumconf'] = 'Конфигурации Autovacuum не найдены';
+    $lang['strvacuumpertable'] = 'Настройка Autovacuum для таблиц';
+    $lang['strpreparedxacts']  =  'Подготовленные транзакции';
+    $lang['strallobjects'] = 'Все объекты';
+    $lang['strexecute']  =  'Выполнить';
+    $lang['strunselectall'] = 'Отменить выбор';
+    $lang['strselectall'] = 'Выбрать всё';
+    $lang['strintroduction'] = 'Старт';
+    $lang['strservers'] = 'Сервера';
+    $lang['strhost'] = 'Хост';
+    $lang['strport'] = 'Порт';
     $lang['strnohistory'] = 'История отсутствует';
     $lang['strhistory'] = 'История';
 
